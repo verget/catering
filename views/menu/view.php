@@ -29,7 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'menu_id',
+            'menu_type',
+            'menu_price',
             'menu_name',
+            'menu_desc',
         ],
     ]) ?>
 

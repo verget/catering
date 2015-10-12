@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Client;
-use app\models\ClientSearch;
+use app\models\Order;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ClientController implements the CRUD actions for Client model.
+ * OrderController implements the CRUD actions for Order model.
  */
-class ClientController extends Controller
+class OrderController extends Controller
 {
     public function behaviors()
     {
@@ -27,22 +27,22 @@ class ClientController extends Controller
     }
 
     /**
-     * Lists all Client models.
+     * Lists all Order models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ClientSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Order::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Client model.
+     * Displays a single Order model.
      * @param integer $id
      * @return mixed
      */
@@ -54,16 +54,16 @@ class ClientController extends Controller
     }
 
     /**
-     * Creates a new Client model.
+     * Creates a new Order model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Client();
+        $model = new Order();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->client_id]);
+            return $this->redirect(['view', 'id' => $model->order_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -72,7 +72,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Updates an existing Client model.
+     * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -82,7 +82,7 @@ class ClientController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->client_id]);
+            return $this->redirect(['view', 'id' => $model->order_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -91,7 +91,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Deletes an existing Client model.
+     * Deletes an existing Order model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class ClientController extends Controller
     }
 
     /**
-     * Finds the Client model based on its primary key value.
+     * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Client the loaded model
+     * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Client::findOne($id)) !== null) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

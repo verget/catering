@@ -14,6 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'item_name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'item_type')->dropDownList($item_types) ?>
+
+    <?= $form->field($model, 'item_price')->textInput() ?>
+    
+    <?= $form->field($model, 'item_tarif')->dropDownList(['person'=>'person', 'dozen'=>'dozen']) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

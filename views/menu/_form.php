@@ -12,7 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'menu_type')->dropDownList(["doeuvres"=>"D'oeuvres", "reseption"=>"Reseption"]) ?>
+
+    <?= $form->field($model, 'menu_price')->textInput() ?>
+
     <?= $form->field($model, 'menu_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'menu_desc')->textArea() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
