@@ -58,10 +58,10 @@ class Item extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMenuHasItems()
-    {
-        return $this->hasMany(MenuHasItem::className(), ['item_item_id' => 'item_id']);
-    }
+//     public function getMenuHasItems()
+//     {
+//         return $this->hasMany(MenuHasItem::className(), ['item_item_id' => 'item_id']);
+//     }
     
     public function getItemTypeName(){
         return $this->hasOne(ItemType::className(), ['item_type_id'=>'item_type']);
@@ -78,10 +78,10 @@ class Item extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrderHasItems()
-    {
-        return $this->hasMany(OrderHasItem::className(), ['item_item_id' => 'item_id']);
-    }
+//     public function getOrderHasItems()
+//     {
+//         return $this->hasMany(OrderHasItem::className(), ['item_item_id' => 'item_id']);
+//     }
 
     /**
      * @return \yii\db\ActiveQuery

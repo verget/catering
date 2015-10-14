@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\MenuItem;
 
 /**
  * MenuController implements the CRUD actions for Menu model.
@@ -33,9 +34,8 @@ class MenuController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Menu::find(),
+            'query' => Menu::find()->joinWith('menuItems'),
         ]);
-
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
@@ -81,11 +81,16 @@ class MenuController extends Controller
     {
         $model = $this->findModel($id);
 
+        $dataProvider = new ActiveDataProvider([
+        		'query' => Menu::find()->joinWith(['menuItems'])
+        ]);
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->menu_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+            		'dataProvider' => $dataProvider,
             ]);
         }
     }

@@ -57,16 +57,18 @@ class Menu extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMenuHasItems()
+//     public function getMenuItems()
+//     {
+//         return $this->hasMany(MenuItem::className(), ['menu_id' => 'menu_id']);
+//     }
+    
+    public function getMenuItems()
     {
-        return $this->hasMany(MenuHasItem::className(), ['menu_menu_id' => 'menu_id']);
+    	return $this->hasMany(Item::className(), ['item_id' => 'item_id'])->viaTable('menu_item', ['menu_id' => 'menu_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getItemItems()
-    {
-        return $this->hasMany(Item::className(), ['item_id' => 'item_item_id'])->viaTable('menu_has_item', ['menu_menu_id' => 'menu_id']);
-    }
+    
 }

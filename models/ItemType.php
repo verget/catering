@@ -51,5 +51,5 @@ class ItemType extends \yii\db\ActiveRecord
             'item_type_id' => 'Item Type Id',
         ];
     }
-   
+
 }

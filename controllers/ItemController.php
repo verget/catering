@@ -34,13 +34,6 @@ class ItemController extends Controller
      */
     public function actionIndex()
     {
-//         $data = Item::find()->joinWith('itemTypeName')->all();
-//         echo '<pre>';
-//         print_r($data);
-//         print_r($data[0]->itemTypeName->item_type_name);
-//         die();
-
-        
         $dataProvider = new ActiveDataProvider([
             'query' => Item::find()->joinWith(['itemTypeName'])
         ]);
@@ -57,14 +50,9 @@ class ItemController extends Controller
      */
     public function actionView($id)
     {
-        $item_types = \app\models\ItemType::find()->asArray()->all();
-        $type_array = [];
-        foreach ($item_types as $key=>$value)
-            $type_array[$value['item_type_id']] = $value['item_type_name'];
-        
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'item_types' => $type_array
+            'item_types' => $this->getAllTypes()
         ]);
     }
 
@@ -76,18 +64,12 @@ class ItemController extends Controller
     public function actionCreate()
     {
         $model = new Item();
-        
-        $item_types = \app\models\ItemType::find()->asArray()->all();
-        $type_array = [];
-        foreach ($item_types as $key=>$value)
-            $type_array[$value['item_type_id']] = $value['item_type_name'];
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->item_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'item_types' => $type_array
+            		'item_types' => $this->getAllTypes()
             ]);
         }
     }
@@ -101,18 +83,12 @@ class ItemController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        
-        $item_types = \app\models\ItemType::find()->asArray()->all();
-        $type_array = [];
-        foreach ($item_types as $key=>$value)
-            $type_array[$value['item_type_id']] = $value['item_type_name'];
-
+       
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->item_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'item_types' => $type_array
             ]);
         }
     }
@@ -128,6 +104,14 @@ class ItemController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public static function getAllTypes(){
+    	$item_types = ItemType::find()->asArray()->all();
+    	$type_array = [];
+    	foreach ($item_types as $key=>$value)
+    		$type_array[$value['item_type_id']] = $value['item_type_name'];
+    	return $type_array;
     }
 
     /**

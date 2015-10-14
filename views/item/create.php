@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\ItemType;
 
 
 /* @var $this yii\web\View */
