@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yii\base\Model;
 
 /**
@@ -19,6 +20,22 @@ class ItemController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                    'allow' => false,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['?'],
+                    ],
+                    [
+                    'allow' => true,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -27,6 +44,8 @@ class ItemController extends Controller
             ],
         ];
     }
+    
+    
 
     /**
      * Lists all Item models.
@@ -69,7 +88,7 @@ class ItemController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-            		'item_types' => $this->getAllTypes()
+        		'item_types' => $this->getAllTypes()
             ]);
         }
     }
@@ -89,6 +108,7 @@ class ItemController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'item_types' => $this->getAllTypes()
             ]);
         }
     }
@@ -112,6 +132,10 @@ class ItemController extends Controller
     	foreach ($item_types as $key=>$value)
     		$type_array[$value['item_type_id']] = $value['item_type_name'];
     	return $type_array;
+    }
+    
+    public static function getTypeName($data){
+       return ItemType::findOne($data);
     }
 
     /**

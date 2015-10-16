@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+#menu_items_select select{
+	width: 100%;
+}

@@ -26,26 +26,42 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => 'Catering',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
+            $menuItems = [
+                            ['label' => 'Home', 'url' => ['/site/index']],
+
+            ];
+            if (Yii::$app->user->isGuest):
+                $menuItems[] = [
+                                'label' => 'Login',
+                                'url' => ['/site/login']];
+                $menuItems[] = [
+                                'label' => 'Sign in',
+                                'url' => ['/site/reg']];
+            else :
+                
+                $menuItems[] = [
+                                'label' => 'Items',
+                                'url' => ['/item']];
+                $menuItems[] = [
+                                'label' => 'Orders',
+                                'url' => ['/order']];
+                $menuItems[] = [
+                                'label' => 'Menu',
+                                'url' => ['/menu']];
+                $menuItems[] =  ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                                'url' => ['/site/logout'],
+                                'linkOptions' => ['data-method' => 'post']];
+                
+            endif;
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
-                'items' => [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'Items', 'url' => ['/item']],
-                    ['label' => 'Orders', 'url' => ['/order']],
-                    ['label' => 'Menu', 'url' => ['/menu']],
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Sign in', 'url' => ['/user/security/login']] :
-                        ['label' => 'Sign out (' . Yii::$app->user->identity->username . ')',
-                            'url' => ['/user/security/logout'],
-                            'linkOptions' => ['data-method' => 'post']],
-                        ['label' => 'Register', 'url' => ['/user/registration/register'], 'visible' => Yii::$app->user->isGuest]
-                ],
+                'items' => $menuItems
             ]);
             NavBar::end();
         ?>

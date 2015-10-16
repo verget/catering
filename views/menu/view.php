@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Menu */
 
-$this->title = $model->menu_id;
+$this->title = $model->menu_name;
 $this->params['breadcrumbs'][] = ['label' => 'Menus', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -32,8 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'menu_type',
             'menu_price',
             'menu_name',
-            'menu_desc',
         ],
     ]) ?>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <?php echo $model->menu_desc;?>
+              </div>
+            </div>
+        </div>
+    </div>
 
 </div>

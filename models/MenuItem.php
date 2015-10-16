@@ -37,5 +37,11 @@ class MenuItem extends \yii\db\ActiveRecord
             'item_id' => 'Item ID',
         ];
     }
+    
+    public function getItem()
+    {
+        return $this->hasOne(Item::className(), ['item_id'=>'item_id']);
+    }
+    
    
 }

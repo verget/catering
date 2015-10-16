@@ -4,10 +4,14 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Order;
+use app\models\Menu;
+use app\models\Item;
+use app\models\OrderLocation;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -17,6 +21,22 @@ class OrderController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                    'allow' => false,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['?'],
+                    ],
+                    [
+                    'allow' => true,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -33,7 +53,7 @@ class OrderController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Order::find(),
+            'query' => Order::find()->joinWith(['orderLocationName']),
         ]);
 
         return $this->render('index', [
@@ -50,6 +70,7 @@ class OrderController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'locations' => $this->getAllLocations()
         ]);
     }
 
@@ -61,12 +82,17 @@ class OrderController extends Controller
     public function actionCreate()
     {
         $model = new Order();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        
+        $model->load(Yii::$app->request->post());
+        $model->order_user_id = Yii::$app->user->identity->id;
+        if ($model->save()) {
             return $this->redirect(['view', 'id' => $model->order_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'locations' => $this->getAllLocations(),
+                'all_menu' => $this->getAllMenu(),
+                'addons' => Item::find()->asArray()->where(['item_type' =>  Item::ADDON_TYPE])->all()
             ]);
         }
     }
@@ -86,9 +112,12 @@ class OrderController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'locations' => $this->getAllLocations(),
+                'all_menu' => $this->getAllMenu()
             ]);
         }
     }
+    
 
     /**
      * Deletes an existing Order model.
@@ -101,6 +130,35 @@ class OrderController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public static function getAllLocations(){
+        $locations = OrderLocation::find()->asArray()->all();
+        $location_array = [];
+        foreach ($locations as $key=>$value)
+            $location_array[$value['location_id']] = $value['location_name'];
+        return $location_array;
+    }
+    
+    public static function getLocationName($data){
+        return OrderLocation::findOne($data);
+    }
+    
+    public static function getAllMenu(){
+        $items =  Menu::find()->asArray()->all();
+        $all = [];
+        
+        foreach ($items as $key => $value){
+            $add = "";
+            
+            if($value['menu_type'] == 'doeuvres')
+                $add = " $".$value['menu_price']."/dozen";
+            elseif($value['menu_type'] == 'reseption')
+            $add = " $".$value['menu_price']."/person";
+            
+            $all[$value['menu_type']][$value['menu_id']] = $value['menu_name'].$add ;
+        }
+        return $all;
     }
 
     /**

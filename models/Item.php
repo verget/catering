@@ -23,6 +23,9 @@ class Item extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    const ADDON_TYPE = '1';
+    
     public static function tableName()
     {
         return 'item';
@@ -66,6 +69,13 @@ class Item extends \yii\db\ActiveRecord
     public function getItemTypeName(){
         return $this->hasOne(ItemType::className(), ['item_type_id'=>'item_type']);
     }
+    
+    public function getMenuItems()
+    {
+        return $this->hasMany(MenuItem::className(), ['item_id' => 'item_id']);
+    }
+    
+
 
     /**
      * @return \yii\db\ActiveQuery

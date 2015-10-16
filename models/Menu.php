@@ -36,7 +36,7 @@ class Menu extends \yii\db\ActiveRecord
             [['menu_type'], 'string', 'max' => 50],
             [['menu_price'], 'number'],
             [['menu_name'], 'string', 'max' => 50],
-            [['menu_desc'], 'string', 'max' => 255]
+            [['menu_desc'], 'string', 'max' => 2550]
         ];
     }
 
@@ -66,6 +66,13 @@ class Menu extends \yii\db\ActiveRecord
     {
     	return $this->hasMany(Item::className(), ['item_id' => 'item_id'])->viaTable('menu_item', ['menu_id' => 'menu_id']);
     }
+    
+//     public function getMenuItemName()
+//     {
+//         $item = $this->menuItem;
+    
+//         return $item ? $item->item_name : '';
+//     }
 
     /**
      * @return \yii\db\ActiveQuery

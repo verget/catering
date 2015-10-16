@@ -8,7 +8,10 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\models\MenuItem;
+use app\models\Item;
+use yii\helpers\ArrayHelper;
 
 /**
  * MenuController implements the CRUD actions for Menu model.
@@ -18,6 +21,22 @@ class MenuController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete'],
+                'rules' => [
+                    [
+                    'allow' => false,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['?'],
+                    ],
+                    [
+                    'allow' => true,
+                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                    'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -80,17 +99,21 @@ class MenuController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         $dataProvider = new ActiveDataProvider([
-        		'query' => Menu::find()->joinWith(['menuItems'])
+        		'query' => Item::find()->joinWith('menuItems')->where(['menu_id' => $model->menu_id]),
+                'pagination' => ['pageSize' => 10,],
         ]);
         
+        $all_items = Item::find()->all();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->menu_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-            		'dataProvider' => $dataProvider,
+        		'dataProvider' => $dataProvider,
+                'all_items' => $all_items,
             ]);
         }
     }
@@ -107,6 +130,41 @@ class MenuController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    public function actionAddItems(){
+        $request = Yii::$app->request;
+        $items = json_decode($request->post('items'));
+
+        foreach ($items as $item){
+            $model = new MenuItem();
+            $model->item_id = $item;
+            $model->menu_id = $request->post('menu');
+            $model->save();
+        }
+        return true;
+    }
+    public function actionDeleteItem(){
+        $request = Yii::$app->request;
+        $item_id = $request->post('item');
+        $menu_id = $request->post('menu');
+        $item = MenuItem::findOne([
+                        'item_id'=> $item_id,
+                        'menu_id'=> $menu_id,
+        ]);
+        $item->delete();
+        return true;
+    }
+    
+    public function actionGetMenu(){
+        $request = Yii::$app->request;
+        $id = $request->post('id');
+        $menu = $this->findModel($id);
+        $items = ArrayHelper::map($menu->menuItems, 'item_id', 'item_name');
+        return json_encode (['desc' => $menu->menu_desc, 'items' => $items]);
+    }
+    
+
+
 
     /**
      * Finds the Menu model based on its primary key value.

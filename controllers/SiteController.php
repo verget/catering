@@ -7,7 +7,10 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\RegForm;
 use app\models\ContactForm;
+use app\models\User;
+
 
 class SiteController extends Controller
 {
@@ -16,11 +19,16 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['login', 'logout', 'reg'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
                         'allow' => true,
+                        'actions' => ['login', 'reg'],
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['logout'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -52,27 +60,86 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionLogin()
+    public function actionReg()
     {
-        if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        
+        $model =  new RegForm();
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()):
+            if ($user = $model->reg()):
+                if ($user->status === User::STATUS_ACTIVE):
+                    if (Yii::$app->getUser()->login($user)):
+                        return $this->goHome();
+                    endif;
+                else:
+                    if($model->sendActivationEmail($user)):
+                        Yii::$app->session->setFlash('success', 'Activation mail was sent to email <strong>'.Html::encode($user->email).'</strong> (check spam folder).');
+                    else:
+                        Yii::$app->session->setFlash('error', 'Error.');
+                        Yii::error('Mail send error.');
+                    endif;
+                    return $this->refresh();
+                endif;
+            else:
+                Yii::$app->session->setFlash('error', 'Reg error.');
+                Yii::error('Reg error');
+                return $this->refresh();
+            endif;
+        endif;
+
+        return $this->render(
+            'reg',
+            [
+                'model' => $model
+            ]
+        );
     }
+
+//     public function actionActivateAccount($key)
+//     {
+//         try {
+//             $user = new AccountActivation($key);
+//         }
+//         catch(InvalidParamException $e) {
+//             throw new BadRequestHttpException($e->getMessage());
+//         }
+
+//         if($user->activateAccount()):
+//             Yii::$app->session->setFlash('success', 'Активация прошла успешно. <strong>'.Html::encode($user->username).'</strong> вы теперь с phpNT!!!');
+//         else:
+//             Yii::$app->session->setFlash('error', 'Ошибка активации.');
+//             Yii::error('Ошибка при активации.');
+//         endif;
+
+//         return $this->redirect(Url::to(['/login']));
+//     }
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
+        return $this->redirect(['/site/index']);
+    }
 
-        return $this->goHome();
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest):
+            return $this->goHome();
+        endif;
+
+        //$loginWithEmail = Yii::$app->params['loginWithEmail'];
+
+        //$model = $loginWithEmail ? new LoginForm(['scenario' => 'loginWithEmail']) : new LoginForm();
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()):
+            return $this->goBack();
+        endif;
+
+        return $this->render(
+            'login',
+            [
+                'model' => $model
+            ]
+        );
     }
 
     public function actionContact()

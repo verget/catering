@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
 
-$this->title = $model->order_id;
+$this->title = $model->order_name;
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'order_id',
             'order_name',
             'order_date',
-            'order_user_id',
+            'orderUser.username',
+            'orderMenu.menu_name',
             'order_quests',
-            'order_location',
+            'orderLocationName.location_name',
             'order_price',
         ],
     ]) ?>

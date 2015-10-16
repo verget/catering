@@ -4,21 +4,83 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c2d17fca3789a31d2d2a0c055f678ff8",
-    "content-hash": "17eef8c3c9255110eae1b7f8b2b72ad3",
+    "hash": "0e75ef9ab7bd01244021cd84c0ee081a",
+    "content-hash": "818f9562fa89047a825413c0801536ac",
     "packages": [
         {
-            "name": "bower-asset/bootstrap",
-            "version": "v3.3.4",
+            "name": "2amigos/yii2-date-time-picker-widget",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f"
+                "url": "https://github.com/2amigos/yii2-date-time-picker-widget.git",
+                "reference": "1248491c959d7080ab45c5284429e3d9222ed282"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
-                "reference": "a10eb60bc0b07b747fa0c4ebd8821eb7307bd07f",
+                "url": "https://api.github.com/repos/2amigos/yii2-date-time-picker-widget/zipball/1248491c959d7080ab45c5284429e3d9222ed282",
+                "reference": "1248491c959d7080ab45c5284429e3d9222ed282",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/smalot-bootstrap-datetimepicker": "2.3.1",
+                "yiisoft/yii2": "~2.0",
+                "yiisoft/yii2-bootstrap": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "asset-installer-paths": {
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "dosamigos\\datetimepicker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "2amigOS! Consulting Group",
+                    "email": "hola@2amigos.us",
+                    "homepage": "http://2amigos.us",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Bootstrap DateTimePicker widget for Yii2.",
+            "homepage": "http://yiiwheels.com/extension/bootstrap-datetimepicker",
+            "keywords": [
+                "2amigos",
+                "DateTimePicker",
+                "extension",
+                "widget",
+                "yii",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2015-04-02 10:59:30"
+        },
+        {
+            "name": "bower-asset/bootstrap",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
                 "shasum": ""
             },
             "require": {
@@ -28,13 +90,7 @@
             "extra": {
                 "bower-asset-main": [
                     "less/bootstrap.less",
-                    "dist/css/bootstrap.css",
-                    "dist/js/bootstrap.js",
-                    "dist/fonts/glyphicons-halflings-regular.eot",
-                    "dist/fonts/glyphicons-halflings-regular.svg",
-                    "dist/fonts/glyphicons-halflings-regular.ttf",
-                    "dist/fonts/glyphicons-halflings-regular.woff",
-                    "dist/fonts/glyphicons-halflings-regular.woff2"
+                    "dist/js/bootstrap.js"
                 ],
                 "bower-asset-ignore": [
                     "/.*",
@@ -47,6 +103,9 @@
                     "test-infra"
                 ]
             },
+            "license": [
+                "MIT"
+            ],
             "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
             "keywords": [
                 "css",
@@ -184,6 +243,39 @@
             }
         },
         {
+            "name": "bower-asset/smalot-bootstrap-datetimepicker",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smalot/bootstrap-datetimepicker.git",
+                "reference": "c893c91872d273bcea1bd806d03eb624c91a4cac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smalot/bootstrap-datetimepicker/zipball/c893c91872d273bcea1bd806d03eb624c91a4cac",
+                "reference": "c893c91872d273bcea1bd806d03eb624c91a4cac",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "js/bootstrap-datetimepicker.min.js",
+                    "css/bootstrap-datetimepicker.min.css"
+                ],
+                "bower-asset-ignore": [
+                    "build",
+                    "sample in bootstrap v2",
+                    "sample in bootstrap v3",
+                    "screenshot",
+                    "tests",
+                    ".gitattributes",
+                    ".gitignore",
+                    ".travis.yml",
+                    "minify.sh"
+                ]
+            }
+        },
+        {
             "name": "bower-asset/yii2-pjax",
             "version": "v2.0.4",
             "source": {
@@ -277,67 +369,6 @@
             "time": "2015-03-06 05:28:07"
         },
         {
-            "name": "dektrium/yii2-user",
-            "version": "v0.9.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dektrium/yii2-user.git",
-                "reference": "df25484cc999a58490293df4fdd4209817f6ed86"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/df25484cc999a58490293df4fdd4209817f6ed86",
-                "reference": "df25484cc999a58490293df4fdd4209817f6ed86",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "~2.0",
-                "yiisoft/yii2-authclient": "~2.0",
-                "yiisoft/yii2-swiftmailer": "~2.0"
-            },
-            "require-dev": {
-                "codeception/specify": "*",
-                "codeception/verify": "*",
-                "yiisoft/yii2-codeception": "~2.0"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "bootstrap": "dektrium\\user\\Bootstrap",
-                "branch-alias": {
-                    "dev-master": "0.9.x-dev",
-                    "dev-develop": "1.0.x-dev"
-                },
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "dektrium\\user\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dmitry Erofeev",
-                    "email": "dmeroff@gmail.com",
-                    "homepage": "http://dmeroff.ru"
-                }
-            ],
-            "description": "Flexible user registration and authentication module for Yii2",
-            "keywords": [
-                "User management",
-                "dektrium",
-                "yii2",
-                "yii2-user"
-            ],
-            "time": "2015-02-09 11:35:49"
-        },
-        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.6.0",
             "source": {
@@ -382,24 +413,117 @@
             "time": "2013-11-30 08:25:19"
         },
         {
-            "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "name": "fxp/composer-asset-plugin",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "url": "https://github.com/francoispluchino/composer-asset-plugin.git",
+                "reference": "c2b0406ac19e9ea2d9556987e827d4e7f6924fde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "url": "https://api.github.com/repos/francoispluchino/composer-asset-plugin/zipball/c2b0406ac19e9ea2d9556987e827d4e7f6924fde",
+                "reference": "c2b0406ac19e9ea2d9556987e827d4e7f6924fde",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "composer/composer": "~1.0@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Fxp\\Composer\\AssetPlugin\\FxpAssetPlugin",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fxp\\Composer\\AssetPlugin\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Pluchino",
+                    "email": "francois.pluchino@gmail.com"
+                }
+            ],
+            "description": "NPM/Bower Dependency Manager for Composer",
+            "homepage": "https://github.com/francoispluchino/composer-asset-plugin",
+            "keywords": [
+                "asset",
+                "bower",
+                "composer",
+                "dependency manager",
+                "nodejs",
+                "npm",
+                "package"
+            ],
+            "time": "2015-07-29 12:23:21"
+        },
+        {
+            "name": "letyii/yii2-tinymce",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/letyii/yii2-tinymce.git",
+                "reference": "861873f30d9e16f76239ae827f2848879f66f78f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/letyii/yii2-tinymce/zipball/861873f30d9e16f76239ae827f2848879f66f78f",
+                "reference": "861873f30d9e16f76239ae827f2848879f66f78f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "tinymce/tinymce": ">=4",
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "letyii\\tinymce\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "TinyMce for yii2 textarea",
+            "homepage": "https://github.com/letyii/yii2-tinymce",
+            "keywords": [
+                "tinymce",
+                "yii2"
+            ],
+            "time": "2015-07-08 08:11:14"
+        },
+        {
+            "name": "swiftmailer/swiftmailer",
+            "version": "v5.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swiftmailer/swiftmailer.git",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -428,23 +552,70 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-06-06 14:19:39"
         },
         {
-            "name": "yiisoft/yii2",
-            "version": "2.0.4",
+            "name": "tinymce/tinymce",
+            "version": "4.2.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "726867caee3f23aa7a6975c801e64b6021e14f86"
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "fcbae6a7e245b50f80ebc648bc1fff9aa0812e5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/726867caee3f23aa7a6975c801e64b6021e14f86",
-                "reference": "726867caee3f23aa7a6975c801e64b6021e14f86",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/fcbae6a7e245b50f80ebc648bc1fff9aa0812e5a",
+                "reference": "fcbae6a7e245b50f80ebc648bc1fff9aa0812e5a",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "tinymce.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js"
+                    ],
+                    "files": [
+                        "tinymce.min.js",
+                        "plugins/*/plugin.min.js",
+                        "themes/*/theme.min.js",
+                        "skins/**"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "http://www.tinymce.com",
+            "keywords": [
+                "editor",
+                "html",
+                "javascript",
+                "richtext",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "time": "2015-09-28 07:21:44"
+        },
+        {
+            "name": "yiisoft/yii2",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-framework.git",
+                "reference": "f42b2eb80f61992438661b01d0d74c6738e2ff38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f42b2eb80f61992438661b01d0d74c6738e2ff38",
+                "reference": "f42b2eb80f61992438661b01d0d74c6738e2ff38",
                 "shasum": ""
             },
             "require": {
@@ -519,73 +690,25 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-05-10 20:09:47"
-        },
-        {
-            "name": "yiisoft/yii2-authclient",
-            "version": "2.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-authclient.git",
-                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
-                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "yiisoft/yii2": ">=2.0.4"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\authclient\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul Klimov",
-                    "email": "klimov.paul@gmail.com"
-                }
-            ],
-            "description": "External authentication via OAuth and OpenID for the Yii framework",
-            "keywords": [
-                "OpenId",
-                "auth",
-                "oauth",
-                "yii2"
-            ],
-            "time": "2015-09-23 17:26:02"
+            "time": "2015-08-05 22:00:30"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0"
+                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0",
-                "reference": "1b6b1e61cf91c3cdd517d6a7e71d30bb212e4af0",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
+                "reference": "1464f93834b1d5edb1f5625f7ffd6c3723fa4923",
                 "shasum": ""
             },
             "require": {
                 "bower-asset/bootstrap": "3.3.* | 3.2.* | 3.1.*",
-                "yiisoft/yii2": ">=2.0.4"
+                "yiisoft/yii2": ">=2.0.6"
             },
             "type": "yii2-extension",
             "extra": {
@@ -617,7 +740,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-05-10 22:08:17"
+            "time": "2015-09-23 17:48:24"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -719,6 +842,62 @@
     ],
     "packages-dev": [
         {
+            "name": "bower-asset/bootstrap-datepicker",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eternicode/bootstrap-datepicker.git",
+                "reference": "e7ca6bb94dc483817f2ff10fc2b723b2b935e016"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eternicode/bootstrap-datepicker/zipball/e7ca6bb94dc483817f2ff10fc2b723b2b935e016",
+                "reference": "e7ca6bb94dc483817f2ff10fc2b723b2b935e016",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap": ">=2.0.4,<4.0",
+                "bower-asset/jquery": ">=1.7.1"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "dist/css/bootstrap-datepicker.css",
+                    "dist/css/bootstrap-datepicker3.css",
+                    "js/bootstrap-datepicker.js"
+                ],
+                "bower-asset-ignore": []
+            },
+            "license": [
+                "Apache-2.0"
+            ]
+        },
+        {
+            "name": "bower-asset/jquery-ui",
+            "version": "1.11.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jqueryui.git",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "jquery-ui.js"
+                ],
+                "bower-asset-ignore": []
+            }
+        },
+        {
             "name": "bower-asset/typeahead.js",
             "version": "v0.10.5",
             "source": {
@@ -747,16 +926,16 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0"
+                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/010c7efedd88bf31141a02719f51fb44c732d5a0",
-                "reference": "010c7efedd88bf31141a02719f51fb44c732d5a0",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
+                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
                 "shasum": ""
             },
             "require": {
@@ -766,14 +945,18 @@
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "~1.5"
             },
+            "suggest": {
+                "ext-intl": "*"
+            },
             "type": "library",
             "extra": {
-                "branch-alias": []
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
             },
             "autoload": {
-                "psr-0": {
-                    "Faker": "src/",
-                    "Faker\\PHPUnit": "test/"
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -791,7 +974,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2014-06-04 14:43:02"
+            "time": "2015-05-29 06:29:14"
         },
         {
             "name": "phpspec/php-diff",
@@ -826,6 +1009,54 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2013-11-01 13:02:21"
+        },
+        {
+            "name": "yiisoft/yii2-authclient",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-authclient.git",
+                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-authclient/zipball/22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
+                "reference": "22910bfe0000538f5b3ca1102cd3de0b5d14a0e2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "yiisoft/yii2": ">=2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\authclient\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "External authentication via OAuth and OpenID for the Yii framework",
+            "keywords": [
+                "OpenId",
+                "auth",
+                "oauth",
+                "yii2"
+            ],
+            "time": "2015-09-23 17:26:02"
         },
         {
             "name": "yiisoft/yii2-codeception",
@@ -874,16 +1105,16 @@
         },
         {
             "name": "yiisoft/yii2-debug",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "5c7081b2be71c61d3a50d978b31edc3e0b6f2f97"
+                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/5c7081b2be71c61d3a50d978b31edc3e0b6f2f97",
-                "reference": "5c7081b2be71c61d3a50d978b31edc3e0b6f2f97",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/1b302e67521d46feb2413d9d96ca94ed82b39b0e",
+                "reference": "1b302e67521d46feb2413d9d96ca94ed82b39b0e",
                 "shasum": ""
             },
             "require": {
@@ -917,7 +1148,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2015-05-10 22:08:56"
+            "time": "2015-08-06 16:14:06"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -1018,12 +1249,62 @@
                 "yii2"
             ],
             "time": "2015-05-10 22:09:31"
+        },
+        {
+            "name": "yiisoft/yii2-jui",
+            "version": "2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-jui.git",
+                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/ce16f29cca654702c2ee500ccad9657a2d2e6a09",
+                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-ui": "1.11.*@stable",
+                "yiisoft/yii2": ">=2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                },
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\jui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Jquery UI extension for the Yii framework",
+            "keywords": [
+                "jQuery UI",
+                "yii2"
+            ],
+            "time": "2015-05-10 22:09:43"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dektrium/yii2-user": 20
+        "letyii/yii2-tinymce": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
