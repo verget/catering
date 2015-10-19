@@ -35,6 +35,7 @@ class Menu extends \yii\db\ActiveRecord
             [['menu_type', 'menu_price', 'menu_name'], 'required'],
             [['menu_type'], 'string', 'max' => 50],
             [['menu_price'], 'number'],
+            [['menu_limit'], 'integer'],
             [['menu_name'], 'string', 'max' => 50],
             [['menu_desc'], 'string', 'max' => 2550]
         ];
@@ -51,6 +52,7 @@ class Menu extends \yii\db\ActiveRecord
             'menu_price' => 'Menu Price',
             'menu_name' => 'Menu Name',
             'menu_desc' => 'Menu Desc',
+            'menu_limit' => 'Menu Limit',
         ];
     }
 

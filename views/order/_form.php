@@ -15,7 +15,7 @@ use app\models\Menu;
 <div class="order-form">
 
     <?php $form = ActiveForm::begin([
-                    'options' => ['class' => 'form-horizontal'],
+                    'options' => ['class' => 'form-horizontal', 'id'=>'save-order-form'],
                     'fieldConfig' => [
                                     'template' => '{label}<div class="col-sm-6">{input}</div><div class="col-sm-4">{error}</div>',
                                     'labelOptions' => ['class' => 'col-sm-2 control-label'],
@@ -52,19 +52,21 @@ use app\models\Menu;
             
           </div>
      </div>
-
     <div class="panel panel-default" id='order-menu_desc_panel' style="display: none;">
       <div class="panel-body">
         <p id="menu-desc"></p>
       </div>
     </div>
-    
     <div class="panel panel-default" id='order-addons_panel'>
         <div class="panel-heading">Add Ons (check all that apply)</div>
         <div class="panel-body" id='order-addons' >
             <?php 
+                $items = ArrayHelper::map($model->orderItems, 'item_id', 'item_name');
                 foreach ($addons as $add){
-                    echo "<div class='checkbox'><label><input type='checkbox' value='".$add['item_id']."'>".$add['item_name']."  ($".$add['item_price']."/".$add['item_tarif'].")</label></div>";
+                    $checked = "";
+                    if (array_key_exists($add['item_id'], $items))
+                        $checked = "checked";
+                    echo "<div class='checkbox'><label><input type='checkbox' $checked name='Order[order_items][]' class='order-addons' value='".$add['item_id']."'>".$add['item_name']."  ($".$add['item_price']."/".$add['item_tarif'].")</label></div>";
                 }
             ?>
         </div>
@@ -72,7 +74,7 @@ use app\models\Menu;
 
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary' , 'id' => 'save-order-btn' , 'data-order' => $model->order_id]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

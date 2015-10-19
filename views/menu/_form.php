@@ -13,12 +13,14 @@ use app\models\Item;
 <div class="menu-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->field($model, 'menu_name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'menu_type')->dropDownList(["doeuvres"=>"D'oeuvres", "reseption"=>"Reseption"]) ?>
 
     <?= $form->field($model, 'menu_price')->textInput() ?>
-
-    <?= $form->field($model, 'menu_name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'menu_limit')->textInput() ?>
     
     <?= $form->field($model, 'menu_desc')->widget(letyii\tinymce\Tinymce::className(), []) ?>
     

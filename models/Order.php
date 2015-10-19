@@ -67,9 +67,14 @@ class Order extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+//     public function getOrderItems()
+//     {
+//         return $this->hasMany(OrderItem::className(), ['order_order_id' => 'order_id']);
+//     }
+    
     public function getOrderItems()
     {
-        return $this->hasMany(OrderItem::className(), ['order_order_id' => 'order_id']);
+        return $this->hasMany(Item::className(), ['item_id' => 'item_id'])->viaTable('order_item', ['order_id' => 'order_id']);
     }
     
     public function getOrderLocationName(){
@@ -83,11 +88,4 @@ class Order extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id'=>'order_user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-//     public function getItemItems()
-//     {
-//         return $this->hasMany(Item::className(), ['item_id' => 'item_item_id'])->viaTable('order_has_item', ['order_order_id' => 'order_id']);
-//     }
 }

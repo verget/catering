@@ -21,9 +21,8 @@ class OrderItem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['location_name', 'location_id'], 'required'],
-            [['location_id'], 'integer'],
-            [['location_name'], 'string', 'max' => 50]
+            [['order_id', 'item_id'], 'required'],
+            [['order_id', 'item_id', 'menu_id', 'count'], 'integer'],
         ];
     }
     
@@ -34,8 +33,10 @@ class OrderItem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'location_name' => 'Location Name',
-            'location_id' => 'Location id',
+            'order_id' => 'Order',
+            'item_id' => 'Item',
+            'menu_id' => 'Menu ',
+            'count' => 'Count',
         ];
     }
 

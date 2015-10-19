@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = 'Update';
         <div class = "col-xs-4" id="menu_items_select">
              <?php 
              
-                $items = ArrayHelper::map(Item::find()->joinWith(['itemTypeName'])->all(), 'item_id', 'item_name', 'itemTypeName.item_type_name');
+                $items = ArrayHelper::map(Item::find()->joinWith(['itemTypeName'])->where(['!=', 'item_type', Item::ADDON_TYPE])->all(), 'item_id', 'item_name', 'itemTypeName.item_type_name');
                 $params = ['multiple' => 'true'];
         
                 echo Html::activeDropDownList($model, 'menuItems', $items, $params);

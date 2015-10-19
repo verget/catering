@@ -6,6 +6,7 @@ use Yii;
 use app\models\Order;
 use app\models\Menu;
 use app\models\Item;
+use app\models\OrderItem;
 use app\models\OrderLocation;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -85,7 +86,18 @@ class OrderController extends Controller
         
         $model->load(Yii::$app->request->post());
         $model->order_user_id = Yii::$app->user->identity->id;
+
         if ($model->save()) {
+            $request = Yii::$app->request;
+            if (isset($request->post()['Order']['order_items'])){
+                $items = $request->post()['Order']['order_items'];
+                foreach ($items as $key => $val){ 
+                    $order_item = new OrderItem();
+                    $order_item->item_id = $val;
+                    $order_item->order_id = $model->order_id;
+                    $order_item->save();
+                }
+            }
             return $this->redirect(['view', 'id' => $model->order_id]);
         } else {
             return $this->render('create', [
@@ -106,14 +118,29 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->order_id]);
+        if ($model->load(Yii::$app->request->post())){
+            $request = Yii::$app->request;
+            OrderItem::deleteAll(['order_id' => $id]);
+            if (isset($request->post()['Order']['order_items'])){
+                $items = $request->post()['Order']['order_items'];
+                foreach ($items as $key => $val){
+                    $double = OrderItem::find()->where(['item_id' => $val, 'order_id' => $id])->count();
+                    if(!$double){
+                        $order_item = new OrderItem();
+                        $order_item->item_id = $val;
+                        $order_item->order_id = $id;
+                        $order_item->save();
+                    }
+                }
+            }
+            if ($model->save())
+                return $this->redirect(['view', 'id' => $model->order_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'locations' => $this->getAllLocations(),
-                'all_menu' => $this->getAllMenu()
+                'all_menu' => $this->getAllMenu(),
+                'addons' => Item::find()->asArray()->where(['item_type' =>  Item::ADDON_TYPE])->all()
             ]);
         }
     }
@@ -131,6 +158,7 @@ class OrderController extends Controller
 
         return $this->redirect(['index']);
     }
+    
     
     public static function getAllLocations(){
         $locations = OrderLocation::find()->asArray()->all();

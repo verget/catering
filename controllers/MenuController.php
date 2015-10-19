@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\MenuItem;
 use app\models\Item;
+use app\models\Order;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -158,9 +159,15 @@ class MenuController extends Controller
     public function actionGetMenu(){
         $request = Yii::$app->request;
         $id = $request->post('id');
+        $order_id = $request->post('order_id');
         $menu = $this->findModel($id);
+        $order = Order::find($order_id)->one();
+//         var_dump($order->orderItems);
+//         die();
+        $order_items = ArrayHelper::map($order->orderItems, 'item_id', 'item_name');
         $items = ArrayHelper::map($menu->menuItems, 'item_id', 'item_name');
-        return json_encode (['desc' => $menu->menu_desc, 'items' => $items]);
+        
+        return json_encode (['desc' => $menu->menu_desc, 'items' => $items, 'order_items' => $order_items]);
     }
     
 

@@ -26,7 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'menu_type',
             'menu_price',
             'menu_name',
-            'menu_desc',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -38,5 +39,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'order_price',
         ],
     ]) ?>
+    
+   <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <?php echo $model->orderMenu['menu_desc'];?>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                With
+              </div>
+              <div class="panel-body">
+                <?php 
+                    $items = ArrayHelper::map($model->orderItems, 'item_id', 'item_name');
+                    foreach ($items as $key => $value){
+                        echo "<div class='col-xs-4'>$value</div>";
+                    }
+                ?>
+              </div>
+            </div>
+        </div>
+    </div>
 
 </div>
