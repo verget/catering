@@ -58,9 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
               </div>
               <div class="panel-body">
                 <?php 
-                    $items = ArrayHelper::map($model->orderItems, 'item_id', 'item_name');
+                    $items = ArrayHelper::map($order_items, 'item.item_name', 'count', 'item_id');
                     foreach ($items as $key => $value){
-                        echo "<div class='col-xs-4'>$value</div>";
+                        $kkey = array_keys($value)[0];
+                        $vval = $value[$kkey];
+                        echo "<div class='col-xs-4'>$kkey ($vval)</div>";
                     }
                 ?>
               </div>

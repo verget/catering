@@ -54,7 +54,7 @@ class Item extends \yii\db\ActiveRecord
             'item_name' => 'Item Name',
             'item_type' => 'Item Type',
             'item_price' => 'Item Price',
-            'item_tarif' => 'Item Tarif',
+            'item_tarif' => 'Per',
         ];
     }
 

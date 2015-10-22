@@ -37,6 +37,18 @@ $(function() {
         getMenu();
     });
     
+    $('body').on('click','.order-menu-items', function(){
+        var count = 0;
+        $('.order-menu-items').each(function(){
+            if($(this).prop('checked'))
+                count++;
+        });
+        var limit = $('#menu-limit').text()*1;
+        if (count > limit){
+            $('.order-menu-items').prop('checked', false);
+        }
+    });
+    
     
     function getMenu(){
         var id = $('#order-order_menu').val();
@@ -50,20 +62,45 @@ $(function() {
                 $('#order-menu_desc_panel').hide();
                 $('#order-items_panel').hide();
                 $('#order-items').text('');
-                if (!$.isEmptyObject(data.responseJSON.items)){
+                $('#menu-limit').text('');
+                var items = data.responseJSON.items;
+                if (!$.isEmptyObject(items)){
                     $('#order-items_panel').show();
-                    var order_items = data.responseJSON.order_items;
-                    $.each(data.responseJSON.items, function($key, $val){
-                        var checked = '';
-                        if ($key in order_items)
-                            checked = "checked";
-                        $('#order-items').append("<div class='checkbox'><label> <input type='checkbox' "+checked+" name='Order[order_items][]' value='"+$key+"' class='order-menu-items'>"+$val+"</label></div>");
-                    })
+                    var order_items = (data.responseJSON.order_items) ? data.responseJSON.order_items : [];
+                    if (!$.isEmptyObject(items.dozen)){
+                        $.each(items.dozen, function(key, val){
+                            var checked = '';
+                            var count = "";
+                            if (order_items){
+                                if (key in order_items){
+                                    checked = "checked";
+                                    count = order_items[key];
+                                }
+                            }
+                            
+                            $('#order-items').append("<div class='col-sm-8'><div class='row'><div class='col-xs-10'><div class='checkbox'><label> " +
+                                    "<input type='checkbox' "+checked+" name='Order[order_items]["+key+"]' value='1' class='order-menu-items'>"+val+"</label></div></div>" +
+                                            "<div class='col-xs-2'><input type='text' name='Order[order_items]["+key+"]' placeholder='dozen' value='"+count+"' class='order-addon-num'></div></div></div>");
+                        })
+                    }
+                    if (!$.isEmptyObject(items.person)){
+                        $.each(items.person, function(key, val){
+                            var checked = '';
+                            if (key in order_items)
+                                checked = "checked";
+                            $('#order-items').append("<div class='col-sm-8'><div class='row'><div class='col-xs-12'><div class='checkbox'><label> " +
+                                    "<input type='checkbox' "+checked+" name='Order[order_items]["+key+"]' value='1' class='order-menu-items'>"+val+"</label></div></div></div></div>");
+                        })
+                    }
                 }
                 if (data.responseJSON.desc){
                     $('#order-menu_desc_panel').show();
                     $('#menu-desc').text('');
                     $('#menu-desc').append(data.responseJSON.desc);
+                }
+                if (data.responseJSON.limit){
+                    $('#menu-limit').text('');
+                    $('#menu-limit').text(data.responseJSON.limit);
                 }
 
             },

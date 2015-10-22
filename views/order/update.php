@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = 'Update';
         'locations' => $locations,
         'all_menu' => $all_menu,
         'addons' => $addons,
+        'order_items' => $order_items
     ]) ?>
 
 </div>

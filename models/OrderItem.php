@@ -39,5 +39,9 @@ class OrderItem extends \yii\db\ActiveRecord
             'count' => 'Count',
         ];
     }
+    
+    public function getItem(){
+        return $this->hasOne(Item::className(), ['item_id'=>'item_id']);
+    }
 
 }

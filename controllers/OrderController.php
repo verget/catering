@@ -13,7 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use yii\helpers\ArrayHelper;
 /**
  * OrderController implements the CRUD actions for Order model.
  */
@@ -69,9 +69,11 @@ class OrderController extends Controller
      */
     public function actionView($id)
     {
+        $order_items = OrderItem::find(['order_id' => $id])->joinWith('item')->all();
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'locations' => $this->getAllLocations()
+            'locations' => $this->getAllLocations(),
+            'order_items' => $order_items 
         ]);
     }
 
@@ -118,16 +120,20 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $order_items = OrderItem::find(['order_id' => $id])->joinWith('item')->all();
         if ($model->load(Yii::$app->request->post())){
             $request = Yii::$app->request;
+            var_dump($request->post()['Order']['order_items']);
+            die();
             OrderItem::deleteAll(['order_id' => $id]);
             if (isset($request->post()['Order']['order_items'])){
                 $items = $request->post()['Order']['order_items'];
                 foreach ($items as $key => $val){
-                    $double = OrderItem::find()->where(['item_id' => $val, 'order_id' => $id])->count();
+                    $double = OrderItem::find()->where(['item_id' => $key, 'order_id' => $id])->count();
                     if(!$double){
                         $order_item = new OrderItem();
-                        $order_item->item_id = $val;
+                        $order_item->item_id = $key;
+                        $order_item->count = $val;
                         $order_item->order_id = $id;
                         $order_item->save();
                     }
@@ -140,11 +146,18 @@ class OrderController extends Controller
                 'model' => $model,
                 'locations' => $this->getAllLocations(),
                 'all_menu' => $this->getAllMenu(),
-                'addons' => Item::find()->asArray()->where(['item_type' =>  Item::ADDON_TYPE])->all()
+                'addons' => Item::find()->asArray()->where(['item_type' =>  Item::ADDON_TYPE])->all(),
+                'order_items' => $this->getOrderItems($id)
+                            
             ]);
         }
     }
+    protected function getOrderItems($id){
+        $order_items = OrderItem::find(['order_id' => $id])->all();
+        $items = ArrayHelper::map($order_items, 'item_id', 'count');
     
+        return $items;
+    }
 
     /**
      * Deletes an existing Order model.
@@ -196,6 +209,7 @@ class OrderController extends Controller
      * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+    
     protected function findModel($id)
     {
         if (($model = Order::findOne($id)) !== null) {
