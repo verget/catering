@@ -120,26 +120,21 @@ class SiteController extends Controller
         return $this->redirect(['/site/index']);
     }
 
+
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest):
+        if (!Yii::$app->user->isGuest) {
             return $this->goHome();
-        endif;
-
-        //$loginWithEmail = Yii::$app->params['loginWithEmail'];
-
-        //$model = $loginWithEmail ? new LoginForm(['scenario' => 'loginWithEmail']) : new LoginForm();
+        }
+    
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()):
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
-        endif;
-
-        return $this->render(
-            'login',
-            [
-                'model' => $model
-            ]
-        );
+        } else {
+            return $this->render('login', [
+                            'model' => $model,
+            ]);
+        }
     }
 
     public function actionContact()

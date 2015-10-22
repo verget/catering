@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Item;
+use app\models\User;
 use app\models\ItemType;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -25,14 +26,17 @@ class ItemController extends Controller
                 'only' => ['index', 'view', 'create', 'update', 'delete'],
                 'rules' => [
                     [
-                    'allow' => false,
-                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                    'roles' => ['?'],
+                        'allow' => false,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['?'],
                     ],
                     [
-                    'allow' => true,
-                    'actions' => ['index', 'view', 'create', 'update', 'delete'],
-                    'roles' => ['@'],
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return User::isUserAdmin(Yii::$app->user->identity->username);
+                        }
                     ],
                 ],
             ],

@@ -29,12 +29,19 @@ use app\models\Item;
     </div>
    <div class="row">
         <div class="col-xs-8">
-            <?= $form->field($model, 'order_date')->widget(DateTimePicker::className(), []) ?>
+            <?= $form->field($model, 'order_date')->widget(DateTimePicker::className(), [
+                            'size' => 'ms',
+                            'clientOptions' => [
+                                            'autoclose' => true,
+                                            'format' => 'dd MM yyyy - HH:ii P',
+                                            'todayBtn' => true
+                            ]
+            ]) ?>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-8">
-            <?= $form->field($model, 'order_quests')->textInput() ?>
+            <?= $form->field($model, 'order_guests')->textInput() ?>
         </div>
         <div class="col-xs-8">
             <?= $form->field($model, 'order_location')->dropDownList($locations, ['prompt' => "Select Location"]) ?>

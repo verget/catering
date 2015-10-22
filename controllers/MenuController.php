@@ -13,6 +13,7 @@ use app\models\MenuItem;
 use app\models\OrderItem;
 use app\models\Item;
 use app\models\Order;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -36,6 +37,9 @@ class MenuController extends Controller
                     'allow' => true,
                     'actions' => ['index', 'view', 'create', 'update', 'delete'],
                     'roles' => ['@'],
+                    'matchCallback' => function ($rule, $action) {
+                        return User::isUserAdmin(Yii::$app->user->identity->username);
+                    }
                     ],
                 ],
             ],

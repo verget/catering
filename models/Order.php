@@ -37,7 +37,7 @@ class Order extends \yii\db\ActiveRecord
         return [
             [['order_name', 'order_user_id', 'order_date', 'order_menu'], 'required'],
             [['order_date'], 'safe'],
-            [['order_user_id', 'order_quests', 'order_location', 'order_menu'], 'integer'],
+            [['order_user_id', 'order_guests', 'order_location', 'order_menu'], 'integer'],
             [['order_price'], 'number'],
             [['order_name'], 'string', 'max' => 50]
         ];
@@ -53,7 +53,7 @@ class Order extends \yii\db\ActiveRecord
             'order_name' => 'Order Name',
             'order_date' => 'Order Date',
             'order_user_id' => 'Order User ID',
-            'order_quests' => 'Order Quests',
+            'order_guests' => '# of Guests',
             'order_location' => 'Order Location',
             'order_price' => 'Order Price',
             'order_menu' => 'Order Menu',

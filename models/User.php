@@ -31,6 +31,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     const STATUS_NOT_ACTIVE = 1;
     const STATUS_ACTIVE = 10;
     
+    const ROLE_USER = 10;
+    const ROLE_ADMIN = 20;
+    
     public static function tableName()
     {
         return 'user';
@@ -48,7 +51,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['password_hash', 'required', 'on' => 'create'],
             ['username', 'unique', 'message' => 'This name was used.'],
-            ['email', 'unique', 'message' => 'This email was used.']
+            ['email', 'unique', 'message' => 'This email was used.'],
+            ['role', 'default', 'value' => 10],
+            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
         ];
     }
 
@@ -67,6 +72,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'updated_at' => 'Updated At',
             'status' => 'Status',
             'auth_key' => 'Auth Key',
+            'role' => 'Role'
                         
         ];
     }
@@ -157,6 +163,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function getAuthKey()
     {
         return $this->auth_key;
+    }
+    
+    public static function isUserAdmin($username)
+    {
+        if (static::findOne(['username' => $username, 'role' => self::ROLE_ADMIN])){
+    
+            return true;
+        } else {
+    
+            return false;
+        }
+    
     }
     
     /**

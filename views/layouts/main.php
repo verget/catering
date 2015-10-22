@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
+use app\models\User;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -36,29 +37,30 @@ AppAsset::register($this);
                             ['label' => 'Home', 'url' => ['/site/index']],
 
             ];
-            if (Yii::$app->user->isGuest):
+            if (!Yii::$app->user->isGuest){
+                if (User::isUserAdmin(Yii::$app->user->identity->username)){
+            
+                    $menuItems[] = [
+                                    'label' => 'Items',
+                                    'url' => ['/item']];
+                    $menuItems[] = [
+                                    'label' => 'Menu',
+                                    'url' => ['/menu']];
+                }
+                $menuItems[] = [
+                                'label' => 'Orders',
+                                'url' => ['/order']];
+                $menuItems[] =  ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                                'url' => ['/site/logout'],
+                                'linkOptions' => ['data-method' => 'post']];
+            }else{
                 $menuItems[] = [
                                 'label' => 'Login',
                                 'url' => ['/site/login']];
                 $menuItems[] = [
                                 'label' => 'Sign in',
                                 'url' => ['/site/reg']];
-            else :
-                
-                $menuItems[] = [
-                                'label' => 'Items',
-                                'url' => ['/item']];
-                $menuItems[] = [
-                                'label' => 'Orders',
-                                'url' => ['/order']];
-                $menuItems[] = [
-                                'label' => 'Menu',
-                                'url' => ['/menu']];
-                $menuItems[] =  ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                                'url' => ['/site/logout'],
-                                'linkOptions' => ['data-method' => 'post']];
-                
-            endif;
+            }
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems

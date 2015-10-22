@@ -62,6 +62,7 @@ class LoginForm extends Model
             return false;
         }
     }
+    
 
     /**
      * Finds user by [[username]]
@@ -76,4 +77,5 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
 }

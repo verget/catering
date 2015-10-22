@@ -6,6 +6,7 @@ use Yii;
 use app\models\Order;
 use app\models\Menu;
 use app\models\Item;
+use app\models\User;
 use app\models\OrderItem;
 use app\models\OrderLocation;
 use yii\data\ActiveDataProvider;
@@ -53,8 +54,13 @@ class OrderController extends Controller
      */
     public function actionIndex()
     {
+        if (User::isUserAdmin(Yii::$app->user->identity->username))
+            $query = Order::find()->joinWith(['orderLocationName']);
+        else 
+            $query = Order::find()->joinWith(['orderLocationName'])->where(['order_user_id' => Yii::$app->user->id]);
+        
         $dataProvider = new ActiveDataProvider([
-            'query' => Order::find()->joinWith(['orderLocationName']),
+            'query' => $query,
         ]);
 
         return $this->render('index', [
@@ -95,7 +101,8 @@ class OrderController extends Controller
                 $items = $request->post()['Order']['order_items'];
                 foreach ($items as $key => $val){ 
                     $order_item = new OrderItem();
-                    $order_item->item_id = $val;
+                    $order_item->item_id = $key;
+                    $order_item->count = $val;
                     $order_item->order_id = $model->order_id;
                     $order_item->save();
                 }
@@ -123,8 +130,6 @@ class OrderController extends Controller
         $order_items = OrderItem::find(['order_id' => $id])->joinWith('item')->all();
         if ($model->load(Yii::$app->request->post())){
             $request = Yii::$app->request;
-            var_dump($request->post()['Order']['order_items']);
-            die();
             OrderItem::deleteAll(['order_id' => $id]);
             if (isset($request->post()['Order']['order_items'])){
                 $items = $request->post()['Order']['order_items'];

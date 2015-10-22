@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'order_date',
             'orderUser.username',
             'orderMenu.menu_name',
-            'order_quests',
+            'order_guests',
             'orderLocationName.location_name',
             'order_price',
 
